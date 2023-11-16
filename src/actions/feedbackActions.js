@@ -2,29 +2,19 @@
 import axios from '../api/axios-instance';
 import * as actionTypes from '../constants/actionTypes';
 
-export const getUnacknowledged = () => async (dispatch) => {
-  try {
-    const response = await axios.get('/getUnacknowledge');
-    dispatch({ type: actionTypes.GET_UNACKNOWLEDGED, payload: response.data });
-  } catch (error) {
-    console.error('Error fetching unacknowledged feedback:', error);
-  }
-};
+export const getUnacknowledged = () => ({
+  type: actionTypes.GET_UNACKNOWLEDGED,
+  payload: axios.get('/getUnacknowledge').then((response) => response.data),
+});
 
-export const getAcknowledged = () => async (dispatch) => {
-  try {
-    const response = await axios.get('/getAcknowledge');
-    dispatch({ type: actionTypes.GET_ACKNOWLEDGED, payload: response.data });
-  } catch (error) {
-    console.error('Error fetching acknowledged feedback:', error);
-  }
-};
+export const getAcknowledged = () => ({
+  type: actionTypes.GET_ACKNOWLEDGED,
+  payload: axios.get('/getAcknowledge').then((response) => response.data),
+});
 
-export const getByOwner = (feedbackFrom) => async (dispatch) => {
-  try {
-    const response = await axios.get(`/feedbackByOwner/${feedbackFrom}`);
-    dispatch({ type: actionTypes.GET_BY_OWNER, payload: response.data });
-  } catch (error) {
-    console.error('Error fetching feedback by owner:', error);
-  }
-};
+export const getByOwner = (feedbackFrom) => ({
+  type: actionTypes.GET_BY_OWNER,
+  payload: axios.get(`/feedbackByOwner/${feedbackFrom}`).then((response) => response.data),
+});
+
+// Other action creators...
